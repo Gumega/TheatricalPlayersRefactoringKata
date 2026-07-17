@@ -1,0 +1,43 @@
+## Visual Studio Build Outputs
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bbin/
+bin/
+obj/
+
+## Visual Studio User-Specific Files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+
+## WPF and XAML Cache Files
+Generated\ Files/
+_Chutzpah*
+*.gpState
+
+## NuGet Packages and Tooling
+packages/
+!.nuget/
+project.lock.json
+project.assets.json
+
+## MSBuild and Roslyn Caches
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vs/
+.roslyn/
+
+## Operating System Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
