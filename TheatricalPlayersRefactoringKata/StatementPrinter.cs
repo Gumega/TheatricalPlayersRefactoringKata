@@ -6,49 +6,51 @@ namespace TheatricalPlayersRefactoringKata;
 
 public class StatementPrinter
 {
-	public static string Print(Invoice invoice, Dictionary<string, Play> plays)
+    private static CultureInfo cultureInfo = new("en-US");
+    public static string Print(Invoice invoice, Dictionary<string, Play> plays)
 	{
 		int totalAmount = 0;
 		int volumeCredits = 0;
 		string result = string.Format("Statement for {0}\n", invoice.Customer);
-		CultureInfo cultureInfo = new("en-US");
 
-		foreach (Performance perf in invoice.Performances)
+		foreach (Performance performance in invoice.Performances)
 		{
-			Play play = plays[perf.PlayId];
-			int lines = play.Lines;
-			if (lines < 1000) lines = 1000;
-			if (lines > 4000) lines = 4000;
-			int thisAmount = lines * 10;
-			switch (play.Type)
-			{
-				case "tragedy":
-					if (perf.Audience > 30)
-					{
-						thisAmount += 1000 * (perf.Audience - 30);
-					}
-					break;
-				case "comedy":
-					if (perf.Audience > 20)
-					{
-						thisAmount += 10000 + 500 * (perf.Audience - 20);
-					}
-					thisAmount += 300 * perf.Audience;
-					break;
-				default:
-					throw new Exception("unknown type: " + play.Type);
-			}
-			// add volume credits
-			volumeCredits += Math.Max(perf.Audience - 30, 0);
-			// add extra credit for every ten comedy attendees
-			if ("comedy" == play.Type) volumeCredits += (int)Math.Floor((decimal)perf.Audience / 5);
-
-			// print line for this order
-			result += String.Format(cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, Convert.ToDecimal(thisAmount / 100), perf.Audience);
-			totalAmount += thisAmount;
+            ProccessPerformance(performance, plays[performance.PlayId], ref result, ref totalAmount, ref volumeCredits);
 		}
 		result += String.Format(cultureInfo, "Amount owed is {0:C}\n", Convert.ToDecimal(totalAmount / 100));
 		result += String.Format("You earned {0} credits\n", volumeCredits);
 		return result;
 	}
+
+	private static void ProccessPerformance(Performance performance, Play play, ref string result, ref int totalAmount, ref int volumeCredits)
+    {
+        int lines = play.Lines < 1000 ? 1000 : play.Lines > 4000 ? 4000 : play.Lines;
+        int thisAmount = lines / 10;
+        switch (play.Type)
+        {
+            case "tragedy":
+                if (performance.Audience > 30)
+                    thisAmount += 10 * (performance.Audience - 30);
+                break;
+            case "comedy":
+                if (performance.Audience <= 20)
+                    thisAmount += performance.Audience * 3;
+                else if (performance.Audience > 20)
+                    thisAmount += 100 + (20 * 3) + ((performance.Audience - 20) * 5);
+                break;
+            case "history":
+
+                break;
+            default:
+                throw new Exception("unknown type: " + play.Type);
+        }
+        // add volume credits
+        volumeCredits += Math.Max(performance.Audience - 30, 0);
+        // add extra credit for every ten comedy attendees
+        if ("comedy" == play.Type) volumeCredits += (int)Math.Floor((decimal)performance.Audience / 5);
+
+        // print line for this order
+        result += String.Format(cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, Convert.ToDecimal(thisAmount / 100), performance.Audience);
+        totalAmount += thisAmount;
+    }
 }

@@ -7,33 +7,33 @@ namespace TheatricalPlayersRefactoringKata.Tests;
 
 public class StatementPrinterTests
 {
-	/*[Fact]
-	public async Task TestStatementExampleLegacy()
-	{
-		Dictionary<string, Play> plays = new()
+    [Fact]
+    public async Task TestStatementExampleLegacy()
+    {
+        Dictionary<string, Play> plays = new()
         {
             { "hamlet", new Play("Hamlet", 4024, "tragedy") },
             { "as-like", new Play("As You Like It", 2670, "comedy") },
             { "othello", new Play("Othello", 3560, "tragedy") }
         };
 
-		Invoice invoice = new(
-			"BigCo",
+        Invoice invoice = new(
+            "BigCo",
             [
-				new Performance("hamlet", 55),
-				new Performance("as-like", 35),
-				new Performance("othello", 40),
-			]
-		);
+                new Performance("hamlet", 55),
+                new Performance("as-like", 35),
+                new Performance("othello", 40),
+            ]
+        );
 
-		var result = StatementPrinter.Print(invoice, plays);
+        var result = StatementPrinter.Print(invoice, plays);
 
-		await Verify(result);
-	}*/
+        await Verify(result);
+    }
 
-	[Fact]
-	public async Task TestTextStatementExample()
-	{
+    [Fact]
+    public async Task TestTextStatementExample()
+    {
         Dictionary<string, Play> plays = new()
         {
             { "hamlet", new Play("Hamlet", 4024, "tragedy") },
@@ -44,20 +44,20 @@ public class StatementPrinterTests
             { "richard-iii", new Play("Richard III", 3718, "history") }
         };
 
-		Invoice invoice = new(
-			"BigCo",
+        Invoice invoice = new(
+            "BigCo",
             [
-				new Performance("hamlet", 55),
-				new Performance("as-like", 35),
-				new Performance("othello", 40),
-				new Performance("henry-v", 20),
-				new Performance("john", 39),
-				new Performance("henry-v", 20)
-			]
-		);
+                new Performance("hamlet", 55),
+                new Performance("as-like", 35),
+                new Performance("othello", 40),
+                new Performance("henry-v", 20),
+                new Performance("john", 39),
+                new Performance("henry-v", 20)
+            ]
+        );
 
-		var result = StatementPrinter.Print(invoice, plays);
+        var result = StatementPrinter.Print(invoice, plays);
 
-		await Verify(result);
-	}
+        await Verify(result);
+    }
 }
