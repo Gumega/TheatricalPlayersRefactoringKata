@@ -25,8 +25,7 @@ public class StatementPrinterTests
 			}
 		);
 
-		StatementPrinter statementPrinter = new StatementPrinter();
-		var result = statementPrinter.Print(invoice, plays);
+		var result = StatementPrinter.Print(invoice, plays);
 
 		await Verify(result);
 	}
@@ -55,8 +54,7 @@ public class StatementPrinterTests
 			}
 		);
 
-		StatementPrinter statementPrinter = new StatementPrinter();
-		var result = statementPrinter.Print(invoice, plays);
+		var result = StatementPrinter.Print(invoice, plays);
 
 		await Verify(result);
 	}
