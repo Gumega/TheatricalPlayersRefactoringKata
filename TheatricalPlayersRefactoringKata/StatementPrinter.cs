@@ -8,18 +8,18 @@ public class StatementPrinter
 {
 	public static string Print(Invoice invoice, Dictionary<string, Play> plays)
 	{
-		var totalAmount = 0;
-		var volumeCredits = 0;
-		var result = string.Format("Statement for {0}\n", invoice.Customer);
-		CultureInfo cultureInfo = new CultureInfo("en-US");
+		int totalAmount = 0;
+		int volumeCredits = 0;
+		string result = string.Format("Statement for {0}\n", invoice.Customer);
+		CultureInfo cultureInfo = new("en-US");
 
-		foreach (var perf in invoice.Performances)
+		foreach (Performance perf in invoice.Performances)
 		{
-			var play = plays[perf.PlayId];
-			var lines = play.Lines;
+			Play play = plays[perf.PlayId];
+			int lines = play.Lines;
 			if (lines < 1000) lines = 1000;
 			if (lines > 4000) lines = 4000;
-			var thisAmount = lines * 10;
+			int thisAmount = lines * 10;
 			switch (play.Type)
 			{
 				case "tragedy":
