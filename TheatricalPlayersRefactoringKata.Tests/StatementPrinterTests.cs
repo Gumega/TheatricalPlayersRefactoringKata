@@ -31,7 +31,7 @@ public class StatementPrinterTests
 		await Verify(result);
 	}
 
-	/*[Fact]
+	[Fact]
     public async Task TestTextStatementExample()
     {
         Dictionary<string, Play> plays = new()
@@ -59,5 +59,5 @@ public class StatementPrinterTests
         var result = StatementPrinter.Print(invoice, plays);
 
         await Verify(result);
-    }*/
+    }
 }

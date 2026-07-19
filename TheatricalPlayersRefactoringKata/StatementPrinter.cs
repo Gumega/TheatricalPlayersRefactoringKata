@@ -9,7 +9,7 @@ public class StatementPrinter
 	private static readonly CultureInfo cultureInfo = new("en-US");
 	public static string Print(Invoice invoice, Dictionary<string, Play> plays)
 	{
-		int totalAmount = 0;
+		float totalAmount = 0;
 		int volumeCredits = 0;
 		string result = string.Format("Statement for {0}\n", invoice.Customer);
 
@@ -22,28 +22,23 @@ public class StatementPrinter
 		return result;
 	}
 
-	private static void ProccessPerformance(Performance performance, Play play, ref string result, ref int totalAmount, ref int volumeCredits)
+	private static void ProccessPerformance(Performance performance, Play play, ref string result, ref float totalAmount, ref int volumeCredits)
 	{
 		int lines = play.Lines < 1000 ? 1000 : play.Lines > 4000 ? 4000 : play.Lines;
-		int thisAmount = lines / 10;
+		float thisAmount = (float)lines / 10 * (play.Type == "history" ? 2 : 1);
 		// add volume credits
 		volumeCredits += Math.Max(performance.Audience - 30, 0);
-		switch (play.Type)
+		if (play.Type == "tragedy" || play.Type == "history")
 		{
-			case "tragedy":
-				if (performance.Audience > 30)
-					thisAmount += 10 * (performance.Audience - 30);
-				break;
-			case "comedy":
-				thisAmount += (performance.Audience * 3) + (performance.Audience > 20 ? 100 + ((performance.Audience - 20) * 5) : 0);
-				// add extra credit for every ten comedy attendees
+			if (performance.Audience > 30)
+				thisAmount += 10 * (performance.Audience - 30);
+		}
+		if (play.Type == "comedy" || play.Type == "history")
+		{
+			thisAmount += (performance.Audience * 3) + (performance.Audience > 20 ? 100 + ((performance.Audience - 20) * 5) : 0);
+			// add extra credit for every ten comedy attendees
+			if (play.Type == "comedy")
 				volumeCredits += (int)Math.Floor((decimal)performance.Audience / 5);
-				break;
-			case "history":
-
-				break;
-			default:
-				throw new Exception("unknown type: " + play.Type);
 		}
 
 		// print line for this order
