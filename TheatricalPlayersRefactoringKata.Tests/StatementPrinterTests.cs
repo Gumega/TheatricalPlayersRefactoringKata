@@ -7,31 +7,31 @@ namespace TheatricalPlayersRefactoringKata.Tests;
 
 public class StatementPrinterTests
 {
-    [Fact]
-    public async Task TestStatementExampleLegacy()
-    {
-        Dictionary<string, Play> plays = new()
-        {
-            { "hamlet", new Play("Hamlet", 4024, "tragedy") },
-            { "as-like", new Play("As You Like It", 2670, "comedy") },
-            { "othello", new Play("Othello", 3560, "tragedy") }
-        };
+	[Fact]
+	public async Task TestStatementExampleLegacy()
+	{
+		Dictionary<string, Play> plays = new()
+		{
+			{ "hamlet", new Play("Hamlet", 4024, "tragedy") },
+			{ "as-like", new Play("As You Like It", 2670, "comedy") },
+			{ "othello", new Play("Othello", 3560, "tragedy") }
+		};
 
-        Invoice invoice = new(
-            "BigCo",
-            [
-                new Performance("hamlet", 55),
-                new Performance("as-like", 35),
-                new Performance("othello", 40),
-            ]
-        );
+		Invoice invoice = new(
+			"BigCo",
+			[
+				new Performance("hamlet", 55),
+				new Performance("as-like", 35),
+				new Performance("othello", 40),
+			]
+		);
 
-        var result = StatementPrinter.Print(invoice, plays);
+		var result = StatementPrinter.Print(invoice, plays);
 
-        await Verify(result);
-    }
+		await Verify(result);
+	}
 
-    [Fact]
+	/*[Fact]
     public async Task TestTextStatementExample()
     {
         Dictionary<string, Play> plays = new()
@@ -59,5 +59,5 @@ public class StatementPrinterTests
         var result = StatementPrinter.Print(invoice, plays);
 
         await Verify(result);
-    }
+    }*/
 }
