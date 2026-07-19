@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using TheatricalPlayersRefactoringKata.Abstract;
+using TheatricalPlayersRefactoringKata.Calculus;
+using TheatricalPlayersRefactoringKata.Info;
 
 namespace TheatricalPlayersRefactoringKata;
 
@@ -24,25 +27,13 @@ public class StatementPrinter
 
 	private static void ProccessPerformance(Performance performance, Play play, ref string result, ref float totalAmount, ref int volumeCredits)
 	{
-		int lines = play.Lines < 1000 ? 1000 : play.Lines > 4000 ? 4000 : play.Lines;
-		float thisAmount = (float)lines / 10 * (play.Type == "history" ? 2 : 1);
-		// add volume credits
-		volumeCredits += Math.Max(performance.Audience - 30, 0);
-		if (play.Type == "tragedy" || play.Type == "history")
-		{
-			if (performance.Audience > 30)
-				thisAmount += 10 * (performance.Audience - 30);
-		}
-		if (play.Type == "comedy" || play.Type == "history")
-		{
-			thisAmount += (performance.Audience * 3) + (performance.Audience > 20 ? 100 + ((performance.Audience - 20) * 5) : 0);
-			// add extra credit for every ten comedy attendees
-			if (play.Type == "comedy")
-				volumeCredits += (int)Math.Floor((decimal)performance.Audience / 5);
-		}
+		PlayCalculator playCalculator = PlayCalculatorManager.GetPlayCalculator(play.Type);
+
+		float thisPrice = playCalculator.CalculatePrice(performance, play);
+		volumeCredits += playCalculator.CalculateCredit(performance, play);
 
 		// print line for this order
-		result += String.Format(cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, thisAmount, performance.Audience);
-		totalAmount += thisAmount;
+		result += String.Format(cultureInfo, "  {0}: {1:C} ({2} seats)\n", play.Name, thisPrice, performance.Audience);
+		totalAmount += thisPrice;
 	}
 }

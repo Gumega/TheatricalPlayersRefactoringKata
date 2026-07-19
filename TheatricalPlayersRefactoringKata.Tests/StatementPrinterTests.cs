@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TheatricalPlayersRefactoringKata.Info;
 using Xunit;
 using static VerifyXunit.Verifier;
 
