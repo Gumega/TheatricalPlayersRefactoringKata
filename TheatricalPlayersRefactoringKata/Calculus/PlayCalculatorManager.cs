@@ -4,7 +4,7 @@ using TheatricalPlayersRefactoringKata.Abstract;
 
 namespace TheatricalPlayersRefactoringKata.Calculus
 {
-	public static class PlayCalculatorManager
+	public class PlayCalculatorManager
 	{
 		private static readonly Dictionary<string, PlayCalculator> _calculatorDictionary = new()
 		{
