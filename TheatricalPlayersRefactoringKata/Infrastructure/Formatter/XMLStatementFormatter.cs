@@ -1,13 +1,31 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using TheatricalPlayersRefactoringKata.DTO;
-using TheatricalPlayersRefactoringKata.Interface;
+using TheatricalPlayersRefactoringKata.Domain.Model;
 
-namespace TheatricalPlayersRefactoringKata.Formatter
+namespace TheatricalPlayersRefactoringKata.Infrastructure.Formatter
 {
+	[XmlRoot("Statement")]
+	public class StatementXMLDTO
+	{
+		public string Customer { get; set; }
+		[XmlArray("Items")]
+		[XmlArrayItem("Item")]
+		public List<XmlStatementItem> Items { get; set; } = [];
+		public decimal AmountOwed { get; set; }
+		public int EarnedCredits { get; set; }
+	}
+
+	public class XmlStatementItem
+	{
+		public decimal AmountOwed { get; set; }
+		public int EarnedCredits { get; set; }
+		public int Seats { get; set; }
+	}
+
 	public class XMLStatementFormatter : IStatementFormatter
 	{
 		public string Format(StatementData statementData)

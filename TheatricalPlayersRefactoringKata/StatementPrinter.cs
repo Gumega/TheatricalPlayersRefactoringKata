@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using TheatricalPlayersRefactoringKata.DTO;
-using TheatricalPlayersRefactoringKata.Info;
-using TheatricalPlayersRefactoringKata.Interface;
+using TheatricalPlayersRefactoringKata.Application;
+using TheatricalPlayersRefactoringKata.Domain.Model;
+using TheatricalPlayersRefactoringKata.Infrastructure.Formatter;
 
 namespace TheatricalPlayersRefactoringKata;
 

@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
-using TheatricalPlayersRefactoringKata.Abstract;
-using TheatricalPlayersRefactoringKata.Calculus;
-using TheatricalPlayersRefactoringKata.DTO;
-using TheatricalPlayersRefactoringKata.Info;
+using TheatricalPlayersRefactoringKata.Domain.Model;
+using TheatricalPlayersRefactoringKata.Domain.Services;
 
-namespace TheatricalPlayersRefactoringKata
+namespace TheatricalPlayersRefactoringKata.Application
 {
 	public class StatementBuilder
 	{
 		public static StatementData CreateModel(Invoice invoice, Dictionary<string, Play> playDictionary)
 		{
 			List<PerformanceResult> resultList = [];
-			float totalPrice = 0;
+			decimal totalPrice = 0m;
 			int totalCredits = 0;
 
 			foreach (Performance performance in invoice.Performances)
 			{
-				Play play = playDictionary[performance.PlayId];
+				//Play play = playDictionary[performance.PlayId];
+				if (!playDictionary.TryGetValue(performance.PlayId, out Play play))
+					throw new KeyNotFoundException($"Play '{performance.PlayId}' not found.");
 				PlayCalculator calculator = PlayCalculatorManager.GetPlayCalculator(play.Type);
 
-				float price = calculator.CalculatePrice(performance, play);
+				decimal price = calculator.CalculatePrice(performance, play);
 				int credits = calculator.CalculateCredit(performance, play);
 
 				totalPrice += price;

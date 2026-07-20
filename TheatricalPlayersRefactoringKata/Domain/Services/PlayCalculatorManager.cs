@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using TheatricalPlayersRefactoringKata.Abstract;
 
-namespace TheatricalPlayersRefactoringKata.Calculus
+namespace TheatricalPlayersRefactoringKata.Domain.Services
 {
 	public class PlayCalculatorManager
 	{

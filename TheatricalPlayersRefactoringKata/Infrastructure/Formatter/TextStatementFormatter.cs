@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Globalization;
-using TheatricalPlayersRefactoringKata.DTO;
-using TheatricalPlayersRefactoringKata.Interface;
+using TheatricalPlayersRefactoringKata.Domain.Model;
 
-namespace TheatricalPlayersRefactoringKata.Formatter
+namespace TheatricalPlayersRefactoringKata.Infrastructure.Formatter
 {
 	public class TextStatementFormatter : IStatementFormatter
 	{
