@@ -1,17 +1,30 @@
 ﻿using System;
+using System.Reflection;
 using System.Collections.Generic;
-using TheatricalPlayersRefactoringKata.Abstract;
+using System.Linq;
 
-namespace TheatricalPlayersRefactoringKata.Calculus
+namespace TheatricalPlayersRefactoringKata.Domain.Services
 {
 	public class PlayCalculatorManager
 	{
-		private static readonly Dictionary<string, PlayCalculator> _calculatorDictionary = new()
+		private static readonly Dictionary<string, PlayCalculator> _calculatorDictionary;/* = new()
 		{
 			{ "tragedy", new TragedyCalculator() },
 			{ "comedy", new ComedyCalculator()  },
 			{ "history", new HistoryCalculator()  },
-		};
+		};*/
+
+		static PlayCalculatorManager()
+		{
+			_calculatorDictionary = Assembly.GetExecutingAssembly()
+				.GetTypes()
+				.Where(t => typeof(PlayCalculator).IsAssignableFrom(t) && !t.IsAbstract)
+				.Select(t => (PlayCalculator)Activator.CreateInstance(t)!)
+				.ToDictionary(
+					c => c.GetType().Name.Replace("Calculator", "").ToLowerInvariant(),
+					c => c,
+					StringComparer.OrdinalIgnoreCase);
+		}
 
 		/// <summary>
 		/// Get the Calculator class and should be modified when a new genre/type is created along with the new Calculator class

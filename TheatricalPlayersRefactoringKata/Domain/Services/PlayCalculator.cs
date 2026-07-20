@@ -1,16 +1,16 @@
 ﻿using System;
-using TheatricalPlayersRefactoringKata.Info;
+using TheatricalPlayersRefactoringKata.Domain.Model;
 
-namespace TheatricalPlayersRefactoringKata.Abstract
+namespace TheatricalPlayersRefactoringKata.Domain.Services
 {
 	public abstract class PlayCalculator
 	{
-		protected float price = 0;
+		protected decimal price = 0;
 		protected int credit = 0;
 
 		protected void BasePrice(int lines)
 		{
-			price = (float)Math.Clamp(lines, 1000, 4000) / 10;
+			price = (decimal)Math.Clamp(lines, 1000, 4000) / 10m;
 		}
 
 		protected void BaseCredit(int audience)
@@ -18,7 +18,7 @@ namespace TheatricalPlayersRefactoringKata.Abstract
 			credit = Math.Max(audience - 30, 0);
 		}
 
-		public virtual float CalculatePrice(Performance performance, Play play)
+		public virtual decimal CalculatePrice(Performance performance, Play play)
 		{
 			BasePrice(play.Lines);
 			return price;

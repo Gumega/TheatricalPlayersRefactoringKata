@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using TheatricalPlayersRefactoringKata.Formatter;
-using TheatricalPlayersRefactoringKata.Info;
+using TheatricalPlayersRefactoringKata.Domain.Model;
+using TheatricalPlayersRefactoringKata.Infrastructure.Formatter;
 using Xunit;
 using static VerifyXunit.Verifier;
 

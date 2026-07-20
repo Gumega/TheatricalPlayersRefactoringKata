@@ -1,15 +1,14 @@
 ﻿using System;
-using TheatricalPlayersRefactoringKata.Abstract;
-using TheatricalPlayersRefactoringKata.Info;
+using TheatricalPlayersRefactoringKata.Domain.Model;
 
-namespace TheatricalPlayersRefactoringKata.Calculus
+namespace TheatricalPlayersRefactoringKata.Domain.Services
 {
 	public class ComedyCalculator : PlayCalculator
 	{
-		public override float CalculatePrice(Performance performance, Play play)
+		public override decimal CalculatePrice(Performance performance, Play play)
 		{
 			base.CalculatePrice(performance, play);
-			price += (performance.Audience * 3) + (performance.Audience > 20 ? 100 + ((performance.Audience - 20) * 5) : 0);
+			price += (performance.Audience * 3m) + (performance.Audience > 20 ? 100m + ((performance.Audience - 20) * 5m) : 0m);
 			return price;
 		}
 

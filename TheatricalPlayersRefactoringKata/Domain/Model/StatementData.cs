@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 
-namespace TheatricalPlayersRefactoringKata.DTO
+namespace TheatricalPlayersRefactoringKata.Domain.Model
 {
 	public record StatementData(
 		string Customer,
 		List<PerformanceResult> PerformanceResultList,
-		float TotalPrice,
+		decimal TotalPrice,
 		int TotalCredits
 	);
 
 	public record PerformanceResult(
 		string PlayName,
-		float Price,
+		decimal Price,
 		int Credits,
 		int Audience
 	);
