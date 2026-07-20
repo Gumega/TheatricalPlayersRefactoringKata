@@ -9,7 +9,7 @@ namespace TheatricalPlayersRefactoringKata.DTO
 		public string Customer { get; set; }
 		[XmlArray("Items")]
 		[XmlArrayItem("Item")]
-		public List<XmlStatementItem> Items { get; set; } = new();
+		public List<XmlStatementItem> Items { get; set; } = [];
 		public float AmountOwed { get; set; }
 		public int EarnedCredits { get; set; }
 	}
